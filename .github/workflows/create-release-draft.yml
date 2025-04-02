@@ -13,7 +13,7 @@ jobs:
       GITHUB_CONTEXT: ${{ toJson(github) }}
       SET_RELEASE_VERSION: ${{ github.event.inputs.set-release-version }}
     name: set-context
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Check trigger branch
         run: |
@@ -27,7 +27,7 @@ jobs:
     name: extract-version
     needs: "set-context"
     continue-on-error: false
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       espanso_version: ${{ steps.version.outputs.version }}
     steps:
@@ -43,7 +43,7 @@ jobs:
   create-release:
     name: create-release
     needs: ["extract-version"]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     continue-on-error: false
     steps:
       - uses: actions/checkout@v4
@@ -127,7 +127,7 @@ jobs:
 
   linux-x11:
     needs: ["extract-version", "create-release"]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     continue-on-error: false
 
     steps:
@@ -154,7 +154,7 @@ jobs:
   
   linux-deb:
     needs: ["extract-version", "create-release"]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     continue-on-error: false
 
     steps:
